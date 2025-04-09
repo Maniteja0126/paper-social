@@ -9,7 +9,7 @@ This is a simplified backend microservice for a social feed system like Paper.So
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/maniteja0126/paper-social.git
+git clone https://github.com/Maniteja0126/paper-social.git
 cd paper-social
 ```
 
