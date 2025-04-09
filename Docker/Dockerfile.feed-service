@@ -1,0 +1,27 @@
+FROM golang:1.24 AS builder
+
+WORKDIR /app
+
+COPY ../feed-service ./feed-service
+COPY ../post-service ./post-service
+
+WORKDIR /app/feed-service
+
+RUN go mod download
+
+COPY ../feed-service .
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o feed-service ./server.go
+
+
+# -----
+
+FROM alpine:latest
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /root/
+COPY --from=builder /app/feed-service .
+
+EXPOSE 8080
+
+CMD ["./feed-service"]

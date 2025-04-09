@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  post-service:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile.post-service
+    container_name: post-service
+    ports:
+      - "50051:50051"
+
+  feed-service:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile.feed-service
+    container_name: feed-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - post-service
+    environment:
+      - POST_SERVICE_ADDR=post-service:50051

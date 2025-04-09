@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package post;
+
+option go_package = "/proto";
+
+
+message ListPostRequest {
+    string user_id = 1;
+}
+
+message Post {
+    string id = 1;
+    string author = 2;
+    string content = 3;
+    int64 timestamp = 4;
+}
+
+message ListPostResponse {
+    repeated Post post = 1;
+}
+
+service PostService {
+    rpc ListPostByUser(ListPostRequest) returns (ListPostResponse);
+}

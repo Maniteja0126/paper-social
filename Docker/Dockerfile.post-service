@@ -1,0 +1,24 @@
+FROM golang:1.24 AS builder
+
+WORKDIR /app
+
+COPY ../post-service/go.mod ../post-service/go.sum ./
+RUN go mod download
+
+COPY ../post-service .
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o post-service ./main.go
+
+# -----
+
+
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /root/
+COPY --from=builder /app/post-service .
+
+EXPOSE 50051
+
+CMD [ "./post-service" ]

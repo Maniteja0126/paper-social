@@ -1,0 +1,28 @@
+# Ignore everything
+**
+
+# Allow only what's needed from the feed-service
+!../feed-service
+../feed-service/.env
+../feed-service/go.mod
+../feed-service/go.sum
+../feed-service/**/*.go
+
+# Allow only what's needed from the post-service
+!../post-service
+../post-service/.env
+../post-service/go.mod
+../post-service/go.sum
+../post-service/**/*.go
+
+# General ignores
+.git
+.gitignore
+.env
+*.log
+*.md
+.DS_Store
+.idea
+.vscode
+node_modules
+docker-compose.override.yml
